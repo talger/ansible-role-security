@@ -1,0 +1,25 @@
+---
+- name: Install SSH
+  apt:
+    name: openssh-server
+    state: present
+
+- name: Configure SSH service to more secure
+  lineinfile:
+    dest: "/etc/ssh/sshd_config"
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    state: present
+    backup: true
+  with_items:
+    - regexp: "^Port"
+      line: "Port {{ security_ssh_port }}"
+    - regexp: "^#?PasswordAuthentication"
+      line: "PasswordAuthentication no"
+    - regexp: "^#?PermitRootLogin"
+      line: "PermitRootLogin no"
+    - regexp: "^#?X11Forwarding"
+      line: "X11Forwarding no"
+    - regexp: "^#?KexAlgorithms (.*)$"
+      line: "KexAlgorithms {{ security_ssh_kexalgorithms | join(',') }}"
+  notify: restart ssh
