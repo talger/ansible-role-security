@@ -1,6 +1,8 @@
 Role Name
 =========
 
+[![Build Status](https://travis-ci.org/talger/ansible-role-security.svg?branch=master)](https://travis-ci.org/talger/ansible-role-security)
+
 A brief description of the role goes here.
 
 Requirements

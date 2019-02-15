@@ -22,4 +22,8 @@
       line: "X11Forwarding no"
     - regexp: "^#?KexAlgorithms (.*)$"
       line: "KexAlgorithms {{ security_ssh_kexalgorithms | join(',') }}"
+    - regexp: "^#?Ciphers (.*)$"
+      line: "Ciphers {{ security_ssh_ciphers | join(',') }}"
+    - regexp: "^#?MACs (.*)$"
+      line: "MACs {{ security_ssh_macs | join(',') }}"
   notify: restart ssh
